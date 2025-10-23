@@ -4,17 +4,31 @@ const app = express()
 
 app.use(express.json());
 
-app.all('/',(req,res,next)=>{
+app.use('/',(req,res,next)=>{
    console.log("Middleware to parse to json");
    next()
 })
 
-app.all('/test',(req,res,next)=>{
+app.use('/test',(req,res,next)=>{
    console.log("Inside second middleware ");
    
    next()
    // res.send("yeah we reached through app.all('/') middleware")
 })
+
+
+// app.all('/',(req,res,next)=>{
+//    console.log("Middleware to parse to json");
+//    next()
+// })
+
+// app.all('/test',(req,res,next)=>{
+//    console.log("Inside second middleware ");
+   
+//    next()
+//    // res.send("yeah we reached through app.all('/') middleware")
+// })
+
 
 
 app.get('/test/user',(req,res)=>{
