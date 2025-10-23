@@ -4,27 +4,23 @@ const app = express()
 
 app.use(express.json());
 
-app.use('/',(req,res,next)=>{
-   console.log("Goes through app.use()");
-   
-   // res.send("This is the app.use() response ")
+app.all('/',(req,res,next)=>{
+   console.log("Middleware to parse to json");
    next()
 })
 
-app.post('/admin/getAllData',(req,res)=>{
-   const token = req.body?.token
-   console.log((token));
+app.all('/test',(req,res,next)=>{
+   console.log("Inside second middleware ");
    
-   if(token === "xyz"){
-         res.send("Fetched All Data Successfully")
-   }else{
-      res.status(401).send("Unauthorized Error")
-   }
+   next()
+   // res.send("yeah we reached through app.all('/') middleware")
 })
 
-app.get('/admin/deleteUser',(req,res)=>{
-   res.send("User Deleted Successfully")
+
+app.get('/test/user',(req,res)=>{
+   res.send("/test/user working fine for app.all() middlewares")
 })
+
 app.listen(3000 , ()=>{
     console.log("Server is listening in port 3000");
     
