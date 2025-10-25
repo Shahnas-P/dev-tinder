@@ -1,20 +1,34 @@
 const express = require('express');
-const { auth } = require('./middlewares/auth');
-
+const connectDb = require('./config/database');
+const User = require('./models/user');
 const app = express()
 
-app.use(express.json());
-
-app.use('/',auth)
+app.post('/signup', async (req,res)=>{
 
 
-app.get('/user',(req,res)=>{
-   res.send("user 1")
+    const user =  new User({
+        firstName:"Anu",
+        lastName:"mol",
+        emailId:"anu@gmail.com",
+        age:24,
+        gender:"female"
+    })
+    try{
+    await user.save()
+    res.status(200).send("User created successfully !!")
+    }catch(error){
+        res.status(400).send("Error: Unable to create user.",error.message)
+    }
 })
 
-app.get('/deleteData',(req,res)=>{
-   res.status(200).send("Data Deleted Successfully")
-})
-app.listen(3000 , ()=>{
+
+connectDb().then(()=>{
+    console.log("Database connected successfully!!");
+    app.listen(3000 , ()=>{
     console.log("Server is listening in port 3000");
 })
+    
+}).catch(()=>{
+    console.error("Database connection Interepted !!! ");
+})
+

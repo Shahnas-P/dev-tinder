@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon src/app.js",
-    "start":"node src/app.js"
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "express": "^5.1.0"
+  },
+  "dependencies": {
+    "mongoose": "^8.19.2"
   }
 }
