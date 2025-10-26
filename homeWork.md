@@ -28,7 +28,12 @@
   - try user.findOne on duplicated data and figure out which one is chosen 
   - API - Get user by email
   - API - Feed api , get all users 
- 
+  - Creat Delete user api
+  - Difference between PUT and PATCH
+  - API to update 
+  - Explore the mongoose documentation specifically for model 
+  - What are options in a Model.findOneAndUpdate method ,explore more about it.
+  - API - Update user with email ID 
 
 
  ## Notes : 

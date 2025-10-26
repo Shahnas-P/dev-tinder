@@ -63,6 +63,30 @@ app.get('/user',async(req,res)=>{
     }
   })
 
+  app.delete('/user', async (req,res)=>{
+    try{  
+        await User.findByIdAndDelete(req.body.userId)
+        res.status(200).send("User Deleted Successfully!!")
+    }catch(error){
+        res.status(500).send("Something Went Wrong!!")
+    }
+  })
+
+  app.patch('/user',async(req,res)=>{
+    try{
+        const {userId} = req.body
+        const data = req.body
+        
+        const updatedUser = await User.findByIdAndUpdate(userId,data,{returnDocument:"after"}).lean()
+        if(updatedUser){
+         res.status(200).send({message:"User updated Successfully !! " , data : updatedUser})
+        }
+        
+    }catch(error){
+        res.status(500).send("Somthing went wrong!!")
+    }
+  })
+
 connectDb().then(()=>{
     console.log("Database connected successfully!!");
     app.listen(3000 , ()=>{
