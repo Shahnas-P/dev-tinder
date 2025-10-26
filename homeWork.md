@@ -21,4 +21,15 @@
  - Create /signup api to add data to database
  - push some documents using api calls 
  - Erron handing using try catch 
+
+ ### 26-10-25
+  - Add the express.json() middleware to you application 
+  - Make your sign up api dynamic to receive data from the end users.
  
+
+
+ ## Notes : 
+ - Schema  
+    - Blueprint defining the structure of documents
+ - Model
+    - Class (created from schema) that represents a MongoDB collection
