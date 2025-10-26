@@ -18,6 +18,51 @@ app.post('/signup', async (req,res)=>{
 })
 
 
+app.get('/users',async(req,res)=>{
+    try{
+       const  {emailId}  =  req.body
+
+    const user = await User.find({emailId})
+    if(user.length!==0){
+        res.status(200).send(user)
+    }else{
+        res.status(400).send("User not found")
+    }
+    }catch(error){
+        res.status(500).send("Something went wrong!!")
+    }
+})
+
+app.get('/user',async(req,res)=>{
+    try{
+        const {emailId} = req.body
+        const user = await User.findOne({emailId})
+
+        if(user){
+            res.status(200).send(user)
+        }else{
+            res.status(400).send("User not found")
+        }
+    }catch(error){
+        res.status(500).send("Something went wrong!!")
+    }
+})
+
+//Feed API - Get all users 
+  
+  app.get('/feed',async(req,res)=>{
+    try{
+        const users = await User.find()
+        if(users){
+            res.status(200).send(users)
+        }else{
+            res.status(400).send("Users not found")
+        }
+    }catch(error){
+        res.status(500).send("Something went wrong!!")
+    }
+  })
+
 connectDb().then(()=>{
     console.log("Database connected successfully!!");
     app.listen(3000 , ()=>{

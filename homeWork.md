@@ -25,6 +25,9 @@
  ### 26-10-25
   - Add the express.json() middleware to you application 
   - Make your sign up api dynamic to receive data from the end users.
+  - try user.findOne on duplicated data and figure out which one is chosen 
+  - API - Get user by email
+  - API - Feed api , get all users 
  
 
 
