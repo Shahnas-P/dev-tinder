@@ -43,9 +43,14 @@
   - Add API Level Validation on PATCH Request and Signup post API 
   - Data Sanitization : Add API Validation for each fields 
 
+### 31-10-2025
+  - Install Validator
+  - Explore Validator library function and use validator function for password ,email and photo url
 
  ## Notes : 
  - Schema  
     - Blueprint defining the structure of documents
  - Model
     - Class (created from schema) that represents a MongoDB collection
+
+ - NEVER TRUST req.body
