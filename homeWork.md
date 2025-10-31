@@ -34,11 +34,14 @@
   - Explore the mongoose documentation specifically for model 
   - What are options in a Model.findOneAndUpdate method ,explore more about it.
   - API - Update user with email ID 
-  
   - Explore Schematype option from documentation 
   - Add required ,unique ,lowerCase , minLenght , trim ,  create custom validator function ,default , improve the database schema .
   - Put all appropriate validation on each fields
   - add timeStamps to the schema 
+
+### 28-10-25
+  - Add API Level Validation on PATCH Request and Signup post API 
+  - Data Sanitization : Add API Validation for each fields 
 
 
  ## Notes : 

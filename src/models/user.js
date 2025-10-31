@@ -20,6 +20,13 @@ const userSchema = new mongoose.Schema({
         maxLength:50,
         trim:true
     },
+    password:{
+        type:String,
+        required:true,
+        maxLength:20,
+        minLength:8,
+        trim:true
+    },
     age:{
         type:Number,
         min:18
@@ -34,7 +41,8 @@ const userSchema = new mongoose.Schema({
     },
     about:{
         type:String,
-        default:"This is a default about"
+        default:"This is a default about",
+        min:1000
     },
     photoUrl:{
         type:String,
@@ -43,6 +51,6 @@ const userSchema = new mongoose.Schema({
     skill:{
         type:[String],
     }
-})
+},{ timestamps: true })
 
 module.exports = mongoose.model("User",userSchema)

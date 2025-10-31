@@ -1,21 +1,45 @@
 const express = require('express');
 const connectDb = require('./config/database');
 const User = require('./models/user');
+const validateKeys = require('./utils/validator');
 const app = express()
+
+
 
 
 app.use(express.json())
 
 app.post('/signup', async (req,res)=>{
     
-    const user =  new User(req.body)
+    try{ 
 
-    try{
+    const data = req.body
+    const ALLOWED_KEYS = [
+    "firstName","lastName","emailId","password","age","gender","about","photoUrl","skill"
+    ]
+
+
+    const isValid = Object.keys(data).every((key)=>ALLOWED_KEYS.includes(key))
+    
+    if(!isValid){
+     return   res.status(400).json({message:"Some of the information you entered isn’t valid. Please check your details and try again."})
+    }
+    
+    
+ 
+    const {isValidate ,errors} = validateKeys(data)
+    
+    if(!isValidate){
+       return res.status(400).json({errors:errors.join(',')})
+    }
+    
+
+    const user =  new User(req.body)
     await user.save()
-    res.status(200).send("User created successfully !!")
+
+    return res.status(200).send("User created successfully !!")
     }catch(error){
-        res.status(400).json({error:error.message})
-        console.log(error?.errorResponse?.errmsg);
+       return res.status(400).json({error:error.message})
     }
 })
 
@@ -28,10 +52,10 @@ app.get('/users',async(req,res)=>{
     if(user.length!==0){
         res.status(200).send(user)
     }else{
-        res.status(400).send("User not found")
+       return res.status(400).send("User not found")
     }
     }catch(error){
-        res.status(500).send("Something went wrong!!")
+       return res.status(500).send("Something went wrong!!")
     }
 })
 
@@ -41,12 +65,12 @@ app.get('/user',async(req,res)=>{
         const user = await User.findOne({emailId})
 
         if(user){
-            res.status(200).send(user)
+          return  res.status(200).send(user)
         }else{
-            res.status(400).send("User not found")
+           return res.status(400).send("User not found")
         }
     }catch(error){
-        res.status(500).send("Something went wrong!!")
+       return  res.status(500).send("Something went wrong!!")
     }
 })
 
@@ -56,36 +80,67 @@ app.get('/user',async(req,res)=>{
     try{
         const users = await User.find()
         if(users){
-            res.status(200).send(users)
+          return  res.status(200).send(users)
         }else{
-            res.status(400).send("Users not found")
+          return  res.status(400).send("Users not found")
         }
     }catch(error){
-        res.status(500).send("Something went wrong!!")
+      return  res.status(500).send("Something went wrong!!")
     }
   })
 
   app.delete('/user', async (req,res)=>{
     try{  
         await User.findByIdAndDelete(req.body.userId)
-        res.status(200).send("User Deleted Successfully!!")
+       return res.status(200).send("User Deleted Successfully!!")
     }catch(error){
-        res.status(500).send("Something Went Wrong!!")
+      return  res.status(500).send("Something Went Wrong!!")
     }
   })
 
-  app.patch('/user',async(req,res)=>{
+  app.patch('/user/:userId',async(req,res)=>{
     try{
-        const {userId} = req.body
-        const data = req.body
-        
-        const updatedUser = await User.findByIdAndUpdate(userId,data,{returnDocument:"after"}).lean()
-        if(updatedUser){
-         res.status(200).send({message:"User updated Successfully !! " , data : updatedUser})
-        }
+    const {userId} = req.params
+    const data = req.body
+    
+    const ALLOWED_KEYS = [
+    "firstName","lastName","emailId","password","age","gender","about","photoUrl","skill"
+    ]
+
+       
+    const isValid = Object.keys(data).every((key) =>
+      ALLOWED_KEYS.includes(key)
+    );
+
+    if (!data || Object.keys(data).length === 0) {
+      return res.status(400).json({ message: "Request body cannot be empty." });
+    }
+
+    if (!isValid) {
+      return res.status(400).json({ message:"Some of the information you entered isn’t valid. Please check your details and try again.",});
+    }
+
+    
+    const {isValidate ,errors} = validateKeys(data)
+    
+    if(!isValidate){
+       return res.status(400).json({errors:errors.join(',')})
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, data, {
+      new:true,
+      runValidators: true,
+    }).lean();
+    
+    
+    if (!updatedUser) {
+     return res.status(400).send({ message: "User not found " });
+    }
+     return res.status(200).send({ message: "User updated Successfully !! ", data: updatedUser });
+
         
     }catch(error){
-        res.status(500).send("Somthing went wrong!!")
+      return  res.status(500).json({error:error.message})
     }
   })
 
