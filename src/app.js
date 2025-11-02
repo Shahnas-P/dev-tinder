@@ -42,6 +42,34 @@ app.post('/signup', async (req,res)=>{
     }
 })
 
+app.post('/login',async(req,res)=>{
+   const {emailId,password} = req.body
+
+   if(!emailId || !password){
+    return res.status(400).json({error:"Email and password required"})
+   }
+
+   const {isValidate,errors} = validateKeys(req.body)
+
+   if(!isValidate){
+    return res.status(400).json({errors:errors.join(',') })
+   }
+
+   const user = await User.findOne({emailId})
+
+   if(!user){
+    return res.status(400).json({message:"Invalid Credential"})
+   }
+   
+   const isPasswordValid = await bcrypt.compare(password,user.password)
+   
+   if(isPasswordValid){
+       return res.status(200).json({message:"Login Successfull"})
+   }else{
+    return res.status(400).json({message:"Invalid Credential"})
+   }
+   
+})
 
 app.get('/users',async(req,res)=>{
     try{
