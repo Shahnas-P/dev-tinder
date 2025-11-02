@@ -1,20 +1,20 @@
 
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,32}$/;
-const photoUrlRegex = /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/[a-zA-Z0-9]+\.[^\s]{2,}|[a-zA-Z0-9]+\.[^\s]{2,})$/i;
+var validator = require('validator');
 
-const validateKeys = (data)=>{    
-        const errors = [];
-       if(data?.emailId && !emailRegex.test(data?.emailId)){
+const validateKeys = (data)=>{   
+
+    const errors = [];
+
+       if(data?.emailId && !(validator.isEmail(data?.emailId))){
          errors.push("Invalid Email") 
        }
-       if(data?.password && !passwordRegex.test(data?.password)){        
-         errors.push("Invalid Password")
+       if(data?.password && !validator.isStrongPassword(data?.password)){        
+         errors.push("Invalid Password : { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 }")
        }
        if(data?.age && !(data?.age >= 18 &&  data?.age < 80)){
          errors.push("Age must be 18 or less than 80")
        }
-       if(data?.photoUrl && !photoUrlRegex.test(data?.photoUrl)){
+       if(data?.photoUrl && !validator.isURL(data?.photoUrl)){
          errors.push("Invalid photo url")
        }
        if(data?.skill && (data?.skill.length < 1 || data?.skill.length  >10 ) ){

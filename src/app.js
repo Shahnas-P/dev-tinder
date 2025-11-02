@@ -2,6 +2,7 @@ const express = require('express');
 const connectDb = require('./config/database');
 const User = require('./models/user');
 const validateKeys = require('./utils/validator');
+const bcrypt = require('bcrypt');
 const app = express()
 
 
@@ -10,34 +11,32 @@ const app = express()
 app.use(express.json())
 
 app.post('/signup', async (req,res)=>{
-    
     try{ 
 
-    const data = req.body
-    const ALLOWED_KEYS = [
-    "firstName","lastName","emailId","password","age","gender","about","photoUrl","skill"
-    ]
-
-
-    const isValid = Object.keys(data).every((key)=>ALLOWED_KEYS.includes(key))
-    
-    if(!isValid){
-     return   res.status(400).json({message:"Some of the information you entered isn’t valid. Please check your details and try again."})
+    const data = req.body  
+  
+    if(!data || Object.keys(data).length ===0){
+      return res.status(400).json({error:"Request body cannot be empty"})
     }
     
-    
- 
     const {isValidate ,errors} = validateKeys(data)
     
     if(!isValidate){
        return res.status(400).json({errors:errors.join(',')})
     }
-    
 
-    const user =  new User(req.body)
+
+   const hashedPassword =await bcrypt.hash(data.password,10)
+
+    const user =  new User({
+      ...data,
+      password : hashedPassword
+    })
+
     await user.save()
 
     return res.status(200).send("User created successfully !!")
+
     }catch(error){
        return res.status(400).json({error:error.message})
     }

@@ -35,7 +35,7 @@
   - What are options in a Model.findOneAndUpdate method ,explore more about it.
   - API - Update user with email ID 
   - Explore Schematype option from documentation 
-  - Add required ,unique ,lowerCase , minLenght , trim ,  create custom validator function ,default , improve the database schema .
+  - Add required ,unique ,lowerCase , minLenght , trim ,  create custom validator function ,default , improve the database       schema .
   - Put all appropriate validation on each fields
   - add timeStamps to the schema 
 
@@ -46,6 +46,14 @@
 ### 31-10-2025
   - Install Validator
   - Explore Validator library function and use validator function for password ,email and photo url
+
+### 2-11-2025
+  - Validate Data in Sign Up function 
+  - Install bcrypty package
+  - Create a password hash using bcrypt.hash and save the user with the encrypted password
+
+  - Create Login API 
+  - Compare passwords and throw error if email  or password invalid
 
  ## Notes : 
  - Schema  
