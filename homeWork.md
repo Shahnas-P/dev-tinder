@@ -51,9 +51,24 @@
   - Validate Data in Sign Up function 
   - Install bcrypty package
   - Create a password hash using bcrypt.hash and save the user with the encrypted password
-
   - Create Login API 
   - Compare passwords and throw error if email  or password invalid
+  - Install cookie-parser
+  - Just send a dummy cookie to user
+  - Create GET /profile API and check if you got the cookie back
+  - Install jsonwebtoken 
+  - In Login API , after email and password validation , create a JWT token   and send  it to user in cookies 
+  - Read the cookies inside your profile API and find the logged in user .
+
+### 4-11-2025 
+  - userAuth Middleware
+  - Add userAuth Middleware in profile API and a new sendConnectionRequest API
+  - Set the expiry of JWT token and cookies  to 7 days.
+
+### 6-11-2025
+  - Create userSchema method to getJWT()
+  - Create userSchema method to comparePassword(passwordInputByUser)
+  
 
  ## Notes : 
  - Schema  

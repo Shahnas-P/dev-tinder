@@ -1,13 +1,29 @@
-const auth = (req,res,next)=>{
-   const token = req.body?.token
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+const auth = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
 
-   if(token === "xyz"){
-      console.log("Authorized");
-      
-      next()
-   }else{
-      res.status(401).send("Unauthorized user")
-   }
-}
+    if (!token) {
+      return res.status(401).json({ message: "Token not found" });
+    }
 
-module.exports = {auth}
+    const decodedToken = jwt.verify(token, "NamasteDevTinder#234");
+
+    const { _id } = decodedToken;
+
+    const user = await User.findById(_id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    req.user = user;
+
+    next();
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { auth };
