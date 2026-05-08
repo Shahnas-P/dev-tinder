@@ -69,6 +69,23 @@
   - Create userSchema method to getJWT()
   - Create userSchema method to comparePassword(passwordInputByUser)
   
+### 9-11-2025
+  - Go and explore tinder api's.
+  - Create a list of all API 's.
+  - Group multiple routes unders reacpective routers 
+
+### 11-11-2025
+  - Read Documentation of express.Router
+  - Create routes folder for managing auth , profile , request routers.
+  - Create authRouter , profileRouter , requestRouter
+  - Import these routers in app.js
+
+### 26-03-2026
+   - Create POST/Logout API 
+   - Create PATCH/porfile/edit  API 
+   - Creat PATCH/profile/password API  - Forget Password aPI 
+   - Make sure validate all the data of POST , PATCH APIs
+   - then push the code  // don't forget to change office git user name to personal
 
  ## Notes : 
  - Schema  
