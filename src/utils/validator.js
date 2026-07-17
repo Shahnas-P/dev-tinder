@@ -5,10 +5,21 @@ const validateKeys = (data)=>{
 
     const errors = [];
 
-       if(data?.emailId && !(validator.isEmail(data?.emailId))){
+       if(!data.firstName){
+        errors.push("FirstName is Required ")
+       }
+       if(!data.emailId){
+        errors.push("Email is Required")
+       }
+
+       if(!data.password){
+        errors.push("Password is Required")
+       }
+
+       if(data.emailId && !(validator.isEmail(data?.emailId))){
          errors.push("Invalid Email") 
        }
-       if(data?.password && !validator.isStrongPassword(data?.password)){        
+       if(data.password && !validator.isStrongPassword(data?.password)){        
          errors.push("Invalid Password : { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 }")
        }
        if(data?.age && !(data?.age >= 18 &&  data?.age < 80)){

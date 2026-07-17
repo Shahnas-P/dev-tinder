@@ -8,20 +8,25 @@ authRouter.post("/signup", async (req, res) => {
   
   try {
     const data = req.body;
-
+ 
+    
     if (!data || Object.keys(data).length === 0) {
       return res.status(400).json({ error: "Request body cannot be empty" });
     }
 
     const { isValidate, errors } = validateKeys(data);
+    
+    
 
     if (!isValidate) {
       return res.status(400).json({ errors: errors.join(",") });
     }
 
+    
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     const user = new User({
+      ...data,
       password: hashedPassword,
     });
 
