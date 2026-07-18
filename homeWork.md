@@ -87,6 +87,20 @@
    - Make sure validate all the data of POST , PATCH APIs
    - then push the code  // don't forget to change office git user name to personal
 
+### 18-07-2026
+   - Create connectionRequest schema 
+   - Send connection requestion API 
+   - Proper validation of data 
+   - Think about all the corner cases 
+   - Refer $or and $and  query in mongoose
+   - schema.pre("save") function
+   - Read about $or and $and query in mongoose 
+   - Read more about indexes  
+   - why do we need index in DB
+   - what is the advantage and disadvantage of creating index
+   - ALWAYS THINK ABOUT CORNER CASES
+
+
  ## Notes : 
  - Schema  
     - Blueprint defining the structure of documents

@@ -5,9 +5,9 @@ const validateKeys = (data)=>{
 
     const errors = [];
 
-       if(!data.firstName){
-        errors.push("FirstName is Required ")
-       }
+      //  if(!data.firstName){
+      //   errors.push("FirstName is Required ")
+      //  }
        if(!data.emailId){
         errors.push("Email is Required")
        }
