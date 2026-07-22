@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
-
+const dbConnectionString = process.env.DB
 const connectDb = async()=>{
-    // await mongoose.connect("mongodb+srv://shahnas:devtinder@dev-tinder.dhmo2mn.mongodb.net/devtinder?appName=dev-tinder")
-        await mongoose.connect("mongodb+srv://shahnasDevTinder:shahnas@devtinder.uctigc7.mongodb.net/devtinder?appName=devTinder")
+    
+        await mongoose.connect(dbConnectionString)
 
 }
 
