@@ -100,6 +100,12 @@
    - what is the advantage and disadvantage of creating index
    - ALWAYS THINK ABOUT CORNER CASES
 
+### 23-07-2026
+   - Write code for API : /request/review/:status/:requestId
+   - Thought process of GET and POST
+   - Read about ref and populate  (mongoose documentation).
+   - Create GET /user/request/received with all the checks 
+
 
  ## Notes : 
  - Schema  

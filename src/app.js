@@ -8,6 +8,7 @@ const { auth } = require('./middlewares/auth');
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const requestRouter = require('./routes/request');
+const userRouter = require("./routes/user");
 const app = express()
 const router = express.Router()
 
@@ -18,6 +19,7 @@ app.use(cookies())
 router.use('/',authRouter)
 router.use('/',profileRouter)
 router.use('/',requestRouter)
+router.use('/',userRouter)
 
 app.use(router)
 
