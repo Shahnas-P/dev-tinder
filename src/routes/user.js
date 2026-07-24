@@ -4,6 +4,7 @@ const userRouter = express.Router()
 const {auth} = require("../middlewares/auth")
 
 const ConnectionRequest = require("../models/connectionRequest")
+const user = require("../models/user")
 
 const USER_SAFE_DATA = "firstName lastName photoUrl about skill"
 
@@ -48,6 +49,47 @@ userRouter.get("/user/connections",auth,async(req,res)=>{
 
         res.status(200).json({message:"Data fetched sucessfully",data})
 
+    }catch(error){
+        res.status(500).json({message:error.message})
+    }
+})
+
+
+userRouter.get("/feed",auth,async(req,res)=>{
+    try{
+        const loggedInUser =  req.user
+
+        //Add pagination 
+        let page = req.query.page || 1;
+        let limit = req.query.limit || 10;
+        if(limit>50) {
+            limit =  10;
+        }
+        let skip = (page-1)*limit
+
+        //get all the connection request of the loggedIn user
+
+        const connectionRequest = await ConnectionRequest.find({$or:[
+            {fromUserId:loggedInUser._id},
+            {toUserId:loggedInUser._id}
+        ]}).select("fromUserId toUserId")
+
+        const hideConnectionList = new Set();
+
+       connectionRequest.forEach((item)=>{
+            hideConnectionList.add(item.fromUserId.toString())
+            hideConnectionList.add(item.toUserId.toString())
+        })
+
+        const feedUser =await user.find({
+            $and:[
+                {_id:{$nin:Array.from(hideConnectionList)}},
+                {_id:{$ne:loggedInUser._id}}
+            ]
+        }).select(USER_SAFE_DATA).skip(skip).limit(limit)
+
+        
+        res.status(200).json({message:"Users fetched succesfully!!",data:feedUser})
     }catch(error){
         res.status(500).json({message:error.message})
     }

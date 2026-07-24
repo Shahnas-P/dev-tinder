@@ -106,6 +106,11 @@
    - Read about ref and populate  (mongoose documentation).
    - Create GET /user/request/received with all the checks 
 
+### 24-07-2026 
+   - Logic for GET/ feed API
+   - Explore  the $nin , $and ,$ne and other query operators 
+   - Added pagination
+
 
  ## Notes : 
  - Schema  
