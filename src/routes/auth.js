@@ -66,7 +66,7 @@ authRouter.post("/login", async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
-    return res.status(200).json({ message: "Login Successfull" });
+    return res.status(200).json({ message: "Login Successfull" , data:user});
   } else {
     return res.status(400).json({ message: "Invalid Credential" });
   }
